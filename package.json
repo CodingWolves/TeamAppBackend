@@ -1,0 +1,16 @@
+{
+ "description": "JoinMe Backend",
+ "repository": {},
+ "license": "GNUv3",
+ "dependencies": {
+  "express": "^4.17.1",
+  "express-cors": "0.0.3",
+  "express-session": "^1.17.1",
+  "joi": "^17.2.1",
+  "module": "^1.2.5",
+  "nodemon": "^2.0.4"
+ },
+ "scripts": {
+  "start": "nodemon app/index.js"
+ }
+}
