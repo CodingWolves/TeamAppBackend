@@ -1,11 +1,17 @@
 const searchUtils = require("../utils/searchUtils.js");
+const userInterface = require("./userInterface.js");
 
+/**
+ * 
+ * @param {userInterface} user 
+ */
 module.exports.query = (user) => {
   return searchUtils.query(user, users);
+  
 };
 
 module.exports.joinGroup = (user, groupId) => {
-  // checks if user can add to group
+  // checks if user can join group
   return `user ${JSON.stringify(user)} joined group ${groupId}`;
 };
 

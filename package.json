@@ -3,9 +3,12 @@
  "repository": {},
  "license": "GNUv3",
  "dependencies": {
+  "connect-mongodb-session": "^2.4.1",
   "express": "^4.17.1",
   "express-cors": "0.0.3",
   "express-session": "^1.17.1",
+  "http": "0.0.1-security",
+  "https": "^1.0.0",
   "joi": "^17.2.1",
   "module": "^1.2.5",
   "nodemon": "^2.0.4"
