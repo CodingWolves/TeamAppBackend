@@ -1,4 +1,4 @@
-class queryInterface {
+class QueryInterface {
   constructor() {
     this.sql = "";
     this.values = {};
@@ -6,4 +6,4 @@ class queryInterface {
   }
 }
 
-module.exports = queryInterface;
+module.exports = QueryInterface;

@@ -1,0 +1,1 @@
+wsl -- cd test/scripts; sh multiple-get-requests.sh

@@ -1,4 +1,4 @@
-class user {
+class UserInterface {
   constructor() {
     this.id = "";
 		this.name = "";
@@ -8,4 +8,4 @@ class user {
   }
 }
 
-module.exports = user;
+module.exports = UserInterface;

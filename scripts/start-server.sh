@@ -1,0 +1,1 @@
+echo "ido" | sudo -S nodemon app/index.js

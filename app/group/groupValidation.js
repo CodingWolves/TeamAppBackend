@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const groupInterface = require("./groupInterface.js");
+const groupInterface = require("./GroupInterface.js");
 
 /**
  *

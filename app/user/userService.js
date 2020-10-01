@@ -1,5 +1,5 @@
 const searchUtils = require("../utils/searchUtils.js");
-const userInterface = require("./userInterface.js");
+const userInterface = require("./UserInterface.js");
 
 /**
  * 

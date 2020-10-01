@@ -1,0 +1,1 @@
+ab -k -c 40 -n 50000 -b 2048 -g result.txt "localhost:3000/user"

@@ -1,4 +1,4 @@
-class group {
+class GroupInterface {
   constructor() {
     this.subjectType = [];
     this.subject = "";
@@ -13,4 +13,4 @@ class group {
 	}
 }
 
-module.exports = group;
+module.exports = GroupInterface;

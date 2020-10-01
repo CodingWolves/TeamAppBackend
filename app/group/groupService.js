@@ -1,16 +1,25 @@
 const searchUtils = require("../utils/searchUtils.js");
 const { addGroupValidation } = require("./groupValidation.js");
-const groupInterface = require("./groupInterface.js");
 const { queryPromise } = require("../db/db.js");
+const GroupInterface = require("./GroupInterface.js");
+const QueryInterface = require("../db/QueryInterface.js");
 
-module.exports.query = function (query) {
+/**
+ *
+ * @param {QueryInterface} query
+ */
+function query(query) {
   queryPromise("INSERT INTO teamapp.groups (`id`) VALUES(2)")
     .then((results) => console.log("results", results))
     .catch((err) => console.log("error", err.sqlMessage));
   return searchUtils.query(query, groups);
-};
+}
 
-module.exports.add = (group) => {
+/**
+ *
+ * @param {GroupInterface} group
+ */
+function add(group) {
   var validation = addGroupValidation(group);
   if (validation.error) {
     console.log(`Group ${JSON.stringify(group)} did not pass validation`);
@@ -19,7 +28,14 @@ module.exports.add = (group) => {
   groups.push(validation.value);
   console.log("add group to db");
   return "ok";
-};
+}
+
+
+
+module.exports.add = add;
+module.exports.query = query;
+
+
 
 var groups = [
   {

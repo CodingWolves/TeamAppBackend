@@ -1,10 +1,10 @@
 const groupService = require("./groupService.js");
 
-module.exports.getGroup = function getGroup(req, res) {
+function getGroup(req, res) {
   res.send(groupService.query(req.query));
-};
+}
 
-module.exports.postGroup = function postGroup(req, res) {
+function postGroup(req, res) {
   var result = groupService.add(req.body.group);
   if (result && result.error) {
     console.log(result);
@@ -12,4 +12,7 @@ module.exports.postGroup = function postGroup(req, res) {
     return;
   }
   res.send(result);
-};
+}
+
+module.exports.postGroup = postGroup;
+module.exports.getGroup = getGroup;

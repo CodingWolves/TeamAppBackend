@@ -2,8 +2,21 @@ const express = require("express");
 const http = require("http");
 const https = require("https");
 const session = require("express-session");
-const MongoDBStore = require("connect-mongodb-session")(session);
 const cors = require("express-cors");
+const MongoDBStore = require("connect-mongodb-session")(session);
+const redis = require("redis");
+
+const RedisStore = require("connect-redis")(session);
+let redisClient = redis.createClient();
+redisClient.on("error", console.error);
+
+const store = new RedisStore({ client: redisClient });
+// const store = new MongoDBStore({
+//   // connects to 'TeamApp' DB in mongo and collection 'sessions'
+//   uri: "mongodb://localhost:27017/TeamApp",
+//   collection: "sessions",
+// });
+store.on("error", console.error);
 
 const appRoutes = require("./appRoutes.js");
 const { env } = require("process");
@@ -16,13 +29,9 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: 3600000, // one hour
+      maxAge: 10000, // 3600000, // one hour
     },
-    store: new MongoDBStore({
-      // connects to 'TeamApp' DB in mongo and collection 'sessions'
-      uri: "mongodb://localhost:27017/TeamApp",
-      collection: "sessions",
-    }),
+    store: store,
   })
 );
 app.use(cors());

@@ -4,6 +4,7 @@
  "license": "GNUv3",
  "dependencies": {
   "connect-mongodb-session": "^2.4.1",
+  "connect-redis": "^5.0.0",
   "express": "^4.17.1",
   "express-cors": "0.0.3",
   "express-session": "^1.17.1",
@@ -11,9 +12,12 @@
   "https": "^1.0.0",
   "joi": "^17.2.1",
   "module": "^1.2.5",
-  "nodemon": "^2.0.4"
+  "mysql": "^2.18.1",
+  "nodemon": "^2.0.4",
+  "redis": "^3.0.2"
  },
  "scripts": {
-  "start": "nodemon app/index.js"
+  "start": "start .\\scripts\\wsl-start-redis-server.bat && start .\\scripts\\wsl-start-server.bat",
+  "test": ".\\test\\scripts\\wsl-multiple-get-requests.bat"
  }
 }
