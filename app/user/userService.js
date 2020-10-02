@@ -5,7 +5,7 @@ const userInterface = require("./UserInterface.js");
  * 
  * @param {userInterface} user 
  */
-module.exports.query = (user) => {
+module.exports.getUserWhereAnd = (user) => {
   return searchUtils.query(user, users);
   
 };

@@ -6,12 +6,6 @@ const express = require("express");
  */
 module.exports = function (app) {
   app.get("/", (req, res) => {
-    // console.log(`Get on process ${process.pid}`);
-    // req.session.magAge = 2;
-    // if (!req.session.count){
-    //   req.session.count=0;
-    // }
-    // req.session.count++;
     res.send("root");
   });
 };

@@ -8,4 +8,6 @@ const groupController = require("./groupController.js");
 module.exports = function (app) {
   app.get("/group", groupController.getGroup);
   app.post("/group", groupController.postGroup);
+  app.put("/group", groupController.updateGroup);
+  // app.delete("/group", groupController.deleteGroup);
 };

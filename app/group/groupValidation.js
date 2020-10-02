@@ -7,16 +7,17 @@ const groupInterface = require("./GroupInterface.js");
  */
 module.exports.addGroupValidation = (group) => {
   var schema = Joi.object({
-    subjectType: Joi.object().optional(),
-    subject: Joi.object().optional(),
-    institution: Joi.object().optional(),
-    studyTogether: Joi.object().optional(),
-    where: Joi.object().optional(),
-    timeRanges: Joi.object().optional(),
-    howLong: Joi.object().optional(),
-    numberOfParticipants: Joi.object().optional(),
-    description: Joi.object().optional(),
-    owner: Joi.object().optional(),
+    id: Joi.optional(),
+    subjectType: Joi.optional(),
+    subject: Joi.optional(),
+    institution: Joi.optional(),
+    studyTogether: Joi.optional(),
+    where: Joi.optional(),
+    timeRanges: Joi.optional(),
+    howLong: Joi.optional(),
+    numberOfParticipants: Joi.optional(),
+    description: Joi.optional(),
+    owner: Joi.optional(),
   });
 
   return schema.validate(group);

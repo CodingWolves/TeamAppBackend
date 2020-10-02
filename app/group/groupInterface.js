@@ -1,5 +1,6 @@
 class GroupInterface {
   constructor() {
+    this.id = 0;
     this.subjectType = [];
     this.subject = "";
     this.institution = "";
