@@ -1,5 +1,7 @@
 const { addGroupValidation } = require("./groupValidation.js");
-const GroupInterface = require("./GroupInterface.js");
+const dummyDb = require("../db/dummyDb.js");
+const {User} = require("../models/User.js");
+const {Group} = require("../models/Group.js");
 const groupDAO = require("./groupDAO.js");
 
 /**
@@ -24,7 +26,7 @@ async function getGroupWhere(groupWhereClause) {
 
 /**
  *
- * @param {GroupInterface} group
+ * @param {Group} group
  */
 async function addGroup(group) {
   var validation = addGroupValidation(group);
@@ -49,6 +51,22 @@ async function addGroup(group) {
   }
 }
 
+/**
+ * 
+ * @param {Group} group 
+ * @param {User} user 
+ */
+function createGroup(group, user) {
+  group.ownerId = user.email;
+  let id = 1;
+  while (dummyDb.studyGroups.reduce((r, g) => r || g.id === id, false)){
+    id++;
+  }
+  group.id = id;
+  dummyDb.studyGroups.push(group);
+  return group;
+}
+
 async function updateGroup(group) {
   var validation = addGroupValidation(group);
   if (validation.error) {
@@ -56,23 +74,29 @@ async function updateGroup(group) {
     return validation;
   }
   if (group.id === undefined) {
-    return {
-      error: { details: [{ message: "group has no id" }] },
-    };
+    return { error: { details: [{ message: "group has no id" }] } };
   }
-  var groupWhere = {
-    id: group.id,
-  };
+  var groupWhere = { id: group.id };
   var dbGroup = await groupDAO.getGroupWhereAnd(groupWhere);
   if (dbGroup.length < 1) {
-    return {
-      error: { details: [{ message: "group does not exist" }] },
-    };
+    return { error: { details: [{ message: "group does not exist" }] } };
   } else {
     return await groupDAO.updateGroupWhereAnd(group, groupWhere);
   }
 }
 
+function getGroupById(id){
+  for (let index in dummyDb.studyGroups){
+    let group = dummyDb.studyGroups[index];
+    if (group.id === id){
+      return group;
+    }
+  }
+  return {error: "group not found"};
+}
+
 module.exports.addGroup = addGroup;
 module.exports.getGroupWhere = getGroupWhere;
 module.exports.updateGroup = updateGroup;
+module.exports.createGroup = createGroup;
+module.exports.getGroupById = getGroupById;

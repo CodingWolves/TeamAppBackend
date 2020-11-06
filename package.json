@@ -5,6 +5,7 @@
  "dependencies": {
   "connect-mongodb-session": "^2.4.1",
   "connect-redis": "^5.0.0",
+  "cookie-parser": "^1.4.5",
   "express": "^4.17.1",
   "express-cors": "0.0.3",
   "express-session": "^1.17.1",
@@ -17,7 +18,8 @@
   "redis": "^3.0.2"
  },
  "scripts": {
-  "start": "start .\\scripts\\wsl-start-redis-server.bat && start .\\scripts\\wsl-start-server.bat",
+  "full": "start .\\scripts\\wsl-start-redis-server.bat && start .\\scripts\\wsl-start-server.bat",
+  "start": "set REDIS_OFF=false&&nodemon .\\app\\index.js",
   "test": ".\\test\\scripts\\wsl-multiple-get-requests.bat"
  }
 }

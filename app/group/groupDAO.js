@@ -1,4 +1,4 @@
-const GroupInterface = require("./GroupInterface.js");
+const {Group} = require("../models/Group.js");
 const queryFactory = require("../db/queryFactory.js");
 const db = require("../db/dbConnection.js");
 
@@ -6,7 +6,7 @@ const tableName = "groups";
 
 /**
  *
- * @param {GroupInterface} group
+ * @param {Group} group
  */
 function addGroup(group) {
   return db.queryPromise(queryFactory.insertQuery(tableName, group));
@@ -14,7 +14,7 @@ function addGroup(group) {
 
 /**
  *
- * @param {GroupInterface} groupWhere
+ * @param {Group} groupWhere
  */
 function getGroupWhereAnd(groupWhere) {
   return db.queryPromise(
@@ -24,7 +24,7 @@ function getGroupWhereAnd(groupWhere) {
 
 /**
  *
- * @param {GroupInterface} groupWhere
+ * @param {Group} groupWhere
  */
 function getGroupWhereOr(groupWhere) {
   return db.queryPromise(
@@ -34,7 +34,7 @@ function getGroupWhereOr(groupWhere) {
 
 /**
  *
- * @param {GroupInterface} groupWhere
+ * @param {Group} groupWhere
  */
 function deleteGroup(groupWhere) {
   return db.queryPromise(
@@ -44,8 +44,8 @@ function deleteGroup(groupWhere) {
 
 /**
  *
- * @param {GroupInterface} groupSet
- * @param {GroupInterface} groupWhere
+ * @param {Group} groupSet
+ * @param {Group} groupWhere
  */
 function updateGroupWhereOr(groupSet, groupWhere) {
   return db.queryPromise(
@@ -55,8 +55,8 @@ function updateGroupWhereOr(groupSet, groupWhere) {
 
 /**
  *
- * @param {GroupInterface} groupSet
- * @param {GroupInterface} groupWhere
+ * @param {Group} groupSet
+ * @param {Group} groupWhere
  */
 function updateGroupWhereAnd(groupSet, groupWhere) {
   return db.queryPromise(

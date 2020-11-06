@@ -1,31 +1,19 @@
 const groupService = require("./groupService.js");
 const express = require("express");
 
-/**
- *
- * @param {express.request} req
- * @param {express.response} res
- */
-function getGroup(req, res) {
-  groupService
-    .getGroupWhere(req.query)
-    .then((value) => res.send(value))
-    .catch((err) => res.status(404).send(err));
-}
+const { Group } = require("../models/Group.js");
+const { string } = require("joi");
 
 /**
  *
  * @param {express.request} req
  * @param {express.response} res
  */
-async function postGroup(req, res) {
-  var result = await groupService.addGroup(req.body.group);
-  console.log(result);
-  if (result && result.error) {
-    res.status(404).send(result.error.details[0].message);
-    return;
-  }
-  res.send(result);
+function getGroupByQuery(req, res) {
+  groupService
+    .getGroupWhere(req.query)
+    .then((value) => res.send(value))
+    .catch((err) => res.status(404).send(err));
 }
 
 /**
@@ -40,10 +28,42 @@ function updateGroup(req, res) {
       .then((result) => res.send(result))
       .catch((err) => res.status(404).send(err));
   } else {
-    res.status(404).send("group was not found in body");
+    res.status(404).send({ error: "group was not found in body" });
   }
 }
 
-module.exports.postGroup = postGroup;
-module.exports.getGroup = getGroup;
+/**
+ *
+ * @param {express.request} req
+ * @param {express.response} res
+ */
+function postCreateGroup(req, res) {
+  if (!req.body) return res.status(400).send({ error: "must have body" });
+  if (!req.signedCookies || !req.signedCookies.user)
+    return res.status(400).send({ error: "must be logged in / signed user cookie error" });
+  const user = req.signedCookies.user;
+  let group = new Group();
+  for (let key in group) {
+    group[key] = req.body[key];
+  }
+  group = groupService.createGroup(group, user);
+  res.status(201).send(group);
+}
+
+/**
+ *
+ * @param {express.request} req
+ * @param {express.response} res
+ */
+function getGroupById(req, res) {
+  if (!"id" in req.params) return res.status(400).send({error:"must be number like '/group/3'"});
+  const id = Number.parseFloat(req.params["id"]);
+  if (id === NaN) return res.status(400).send({error:"must be number like '/group/3'"});
+  const group = groupService.getGroupById(id);
+  res.status(group.error?400:200).send(group);
+}
+
+module.exports.getGroupByQuery = getGroupByQuery;
 module.exports.updateGroup = updateGroup;
+module.exports.postCreateGroup = postCreateGroup;
+module.exports.getGroupById = getGroupById;

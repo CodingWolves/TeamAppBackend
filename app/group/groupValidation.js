@@ -1,9 +1,9 @@
 const Joi = require("joi");
-const groupInterface = require("./GroupInterface.js");
+const {Group} = require("../models/Group.js");
 
 /**
  *
- * @param {groupInterface} group
+ * @param {Group} group
  */
 module.exports.addGroupValidation = (group) => {
   var schema = Joi.object({
