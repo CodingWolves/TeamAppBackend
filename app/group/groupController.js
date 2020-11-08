@@ -63,7 +63,28 @@ function getGroupById(req, res) {
   res.status(group.error?400:200).send(group);
 }
 
+/**
+ *
+ * @param {express.request} req
+ * @param {express.response} res
+ */
+function putJoinGroup(req, res) {
+  if (!req.signedCookies || !req.signedCookies.user) return res.status(400).send("must sign in first / missing signed cookie");
+  const user = req.signedCookies.user;
+  if (!req.body|| !req.body.groupId) return res.status(400).send("must have body with groupId");
+  const groupId = req.body.groupId;
+  group = groupService.userJoin(groupId, user);
+  if (group.error) return res.status(400).send(group);
+  res.status(200).send(group);
+}
+
+function getAllGroups(req, res){
+  res.send(groupService.getAllGroups());
+}
+
 module.exports.getGroupByQuery = getGroupByQuery;
 module.exports.updateGroup = updateGroup;
 module.exports.postCreateGroup = postCreateGroup;
 module.exports.getGroupById = getGroupById;
+module.exports.putJoinGroup = putJoinGroup;
+module.exports.getAllGroups = getAllGroups;

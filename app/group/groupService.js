@@ -95,8 +95,26 @@ function getGroupById(id){
   return {error: "group not found"};
 }
 
+/**
+ * 
+ * @param {int} group 
+ * @param {User} user 
+ */
+function userJoin(groupId, user){
+  const group = getGroupById(groupId);
+  if (group.error) return group;
+  group.participantsNumber++;
+  return group;
+}
+
+function getAllGroups() {
+  return dummyDb.studyGroups;
+}
+
 module.exports.addGroup = addGroup;
 module.exports.getGroupWhere = getGroupWhere;
 module.exports.updateGroup = updateGroup;
 module.exports.createGroup = createGroup;
 module.exports.getGroupById = getGroupById;
+module.exports.userJoin = userJoin;
+module.exports.getAllGroups = getAllGroups;

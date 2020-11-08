@@ -4,6 +4,7 @@ const userRoutes = require("./user/userRoutes.js");
 const groupRoutes = require("./group/groupRoutes.js");
 const signUpRoutes = require("./signUp/signUpRoutes.js");
 const signInRoutes = require("./signIn/signInRoutes.js");
+const courseRoutes = require("./course/courseRoutes.js");
 
 /**
  * adds routes to express application
@@ -15,4 +16,5 @@ module.exports = function (app) {
   groupRoutes(app);
   signUpRoutes(app);
   signInRoutes(app);
+  courseRoutes(app);
 };

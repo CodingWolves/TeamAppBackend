@@ -45,8 +45,8 @@ function postUserJoinGroup(req, res) {
 function putUpdateUser(req, res) {
   console.log(req.signedCookies.user);
   if (!req.signedCookies || !req.signedCookies.user)
-    res.status(400).send({ error: "must sign in first / missing signed cookie" });
-  if (!req.body) res.status(400).send({ error: "must have body" });
+    return res.status(400).send({ error: "must sign in first / missing signed cookie" });
+  if (!req.body) return res.status(400).send({ error: "must have body" });
   let user = new User();
   for (let key in user) {
     user[key] = req.body[key];

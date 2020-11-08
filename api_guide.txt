@@ -1,0 +1,113 @@
+"/signUp"
+method: POST
+body: {
+	email: string,
+	name: string,
+	password: string,
+	degree: string,
+	institution: string,
+	image: string,
+	interested: array
+}
+return:
+	success(201): body
+	fail(400): { error: string }
+
+
+******************************************************************************
+
+"/signIn"
+method: POST
+body: {
+	email: string,
+	password: string
+}
+return:
+	success(200): user
+	fail(400): {error: string}
+signed-cookies: "user" = user
+
+
+******************************************************************************
+
+"/user/update"
+method: PUT
+using-signed-cookie: user
+body: {
+	name: string,
+	degree: string,
+	institution: string,
+	image: string,
+	interested: array
+}
+return:
+	success(205): user
+	fail(400): {error: string}
+signed-cookies: "user" = user
+
+
+******************************************************************************
+
+"/group/create"
+method: POST
+using-signed-cookie: user
+body:{
+	name: string,
+	course: Course,
+	subject: string,
+	studyTogether: boolean,
+	where: string,
+	institution: string,
+	participantsNumber: int,
+	description: string,
+	timeRanges: array,
+	howLong: string,
+	ownerId: string(email)
+}
+return:
+	success(201): group {id: int , name:string .... }(like body)
+	fail(400): {error: string}
+
+
+******************************************************************************
+
+"/group/{id}"
+method: GET
+return: 
+	success(200): group (by id in url)
+	fail(400): {error: string} (including group not found)
+
+
+******************************************************************************
+
+"/group/join"
+method: PUT
+using-signed-cookie: user
+body: {
+	groupId: int
+}
+return:
+	success(201): group
+	fail(400): {error: string}
+
+
+******************************************************************************
+
+"/groups"
+method: GET
+return: array {
+	group0,
+	group1,
+	...
+}
+
+
+******************************************************************************
+
+"/courses"
+method: GET
+return: array {
+	course0,
+	course1,
+	...
+}
