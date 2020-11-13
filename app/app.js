@@ -3,7 +3,7 @@ const cookieParser = require('cookie-parser')
 const http = require("http");
 const https = require("https");
 const session = require("express-session");
-const cors = require("express-cors");
+const cors = require("cors");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const redis = require("redis");
 
