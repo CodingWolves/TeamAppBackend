@@ -7,9 +7,8 @@ const express = require("express");
  * @param {express.request} req
  * @param {express.response} res
  */
-function getUser(req, res) {
-  if (req.query.error) return res.send(`${req.query.error}`);
-  res.send(userService.users);
+function getUsers(req, res) {
+  res.send(userService.users());
 }
 
 /**
@@ -43,7 +42,6 @@ function postUserJoinGroup(req, res) {
  * @param {express.response} res
  */
 function putUpdateUser(req, res) {
-  console.log(req.signedCookies.user);
   if (!req.signedCookies || !req.signedCookies.user)
     return res.status(400).send({ error: "must sign in first / missing signed cookie" });
   if (!req.body) return res.status(400).send({ error: "must have body" });
@@ -58,12 +56,21 @@ function putUpdateUser(req, res) {
   if (user.error) {
     res.status(400).send(user);
   } else {
-    res.cookie("user", user, { signed: true, httpOnly: true });
-    res.status(205).send(user);
+    let minUser = { email: user.email, password: user.password };
+    res.cookie("user", minUser, { signed: true, httpOnly: true });
+    res.status(205).send(minUser);
   }
 }
 
-module.exports.getUser = getUser;
+function getUserDetails(req, res) {
+  if (!req.signedCookies || !req.signedCookies.user)
+    return res.status(400).send({ error: "must sign in first / missing signed cookie" });
+  let details = userService.getUserDetails(req.signedCookies.user.email, req.signedCookies.user.password);
+  res.status(details ? 200 : 400).send(details);
+}
+
+module.exports.getUsers = getUsers;
 module.exports.getUserParamsUserId = getUserParamsUserId;
 module.exports.postUserJoinGroup = postUserJoinGroup;
 module.exports.putUpdateUser = putUpdateUser;
+module.exports.getUserDetails = getUserDetails;

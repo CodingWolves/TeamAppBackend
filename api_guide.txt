@@ -23,7 +23,7 @@ body: {
 	password: string
 }
 return:
-	success(200): user
+	success(200): {email, password}
 	fail(400): {error: string}
 signed-cookies: "user" = user
 
@@ -41,9 +41,28 @@ body: {
 	interested: array
 }
 return:
-	success(205): user
+	success(205): {email, password}
 	fail(400): {error: string}
 signed-cookies: "user" = user
+
+
+******************************************************************************
+
+"/user/details"
+method: GET
+using-signed-cookie: user
+return:
+	success(200): all user details
+	fail(400): {error: string}
+
+
+******************************************************************************
+
+"/users"
+method: GET
+return:
+	success(200): [user1, user2, ... ]
+	fail(400): {error: string}
 
 
 ******************************************************************************

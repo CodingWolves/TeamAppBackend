@@ -1,6 +1,6 @@
 const searchUtils = require("../utils/searchUtils.js");
 const dummyDb = require("../db/dummyDb.js");
-const User = require("../models/User.js");
+const { User } = require("../models/User.js");
 
 /**
  *
@@ -35,3 +35,11 @@ module.exports.updateUser = (user) => {
     }
   }
 };
+
+module.exports.users = () =>{
+  return dummyDb.users;
+}
+
+module.exports.getUserDetails = (email, password) => {
+  return dummyDb.users.find((user) => user.email == email && user.password == password && user);
+}

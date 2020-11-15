@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const http = require("http");
 const https = require("https");
@@ -43,7 +42,6 @@ app.use(
 app.use(cors());
 app.use(cookieParser("secret"));
 app.use(express.json({ limit: "50mb" })); // parses incoming request json body
-app.use(bodyParser.urlencoded({ limit: "50mb" }));
 
 app.get("/views", (req, res) => {
   req.session.views = req.session.views ? req.session.views + 1 : 1;
