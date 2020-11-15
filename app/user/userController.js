@@ -55,10 +55,10 @@ function putUpdateUser(req, res) {
   user.password = req.signedCookies.user.password;
   user = userService.updateUser(user);
   // console.log(user);
-  if (user.error){
+  if (user.error) {
     res.status(400).send(user);
   } else {
-    res.cookie("user", user, { signed: true });
+    res.cookie("user", user, { signed: true, httpOnly: true });
     res.status(205).send(user);
   }
 }

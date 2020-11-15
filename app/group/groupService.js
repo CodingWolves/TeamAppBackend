@@ -1,7 +1,7 @@
 const { addGroupValidation } = require("./groupValidation.js");
 const dummyDb = require("../db/dummyDb.js");
-const {User} = require("../models/User.js");
-const {Group} = require("../models/Group.js");
+const { User } = require("../models/User.js");
+const { Group } = require("../models/Group.js");
 const groupDAO = require("./groupDAO.js");
 
 /**
@@ -52,14 +52,14 @@ async function addGroup(group) {
 }
 
 /**
- * 
- * @param {Group} group 
- * @param {User} user 
+ *
+ * @param {Group} group
+ * @param {User} user
  */
 function createGroup(group, user) {
   group.ownerId = user.email;
   let id = 1;
-  while (dummyDb.studyGroups.reduce((r, g) => r || g.id === id, false)){
+  while (dummyDb.studyGroups.reduce((r, g) => r || g.id === id, false)) {
     id++;
   }
   group.id = id;
@@ -85,22 +85,22 @@ async function updateGroup(group) {
   }
 }
 
-function getGroupById(id){
-  for (let index in dummyDb.studyGroups){
+function getGroupById(id) {
+  for (let index in dummyDb.studyGroups) {
     let group = dummyDb.studyGroups[index];
-    if (group.id === id){
+    if (group.id === id) {
       return group;
     }
   }
-  return {error: "group not found"};
+  return { error: "group not found" };
 }
 
 /**
- * 
- * @param {int} group 
- * @param {User} user 
+ *
+ * @param {int} group
+ * @param {User} user
  */
-function userJoin(groupId, user){
+function userJoin(groupId, user) {
   const group = getGroupById(groupId);
   if (group.error) return group;
   group.participantsNumber++;

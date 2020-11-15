@@ -56,11 +56,11 @@ function postCreateGroup(req, res) {
  * @param {express.response} res
  */
 function getGroupById(req, res) {
-  if (!"id" in req.params) return res.status(400).send({error:"must be number like '/group/3'"});
+  if (!"id" in req.params) return res.status(400).send({ error: "must be number like '/group/3'" });
   const id = Number.parseFloat(req.params["id"]);
-  if (id === NaN) return res.status(400).send({error:"must be number like '/group/3'"});
+  if (id === NaN) return res.status(400).send({ error: "must be number like '/group/3'" });
   const group = groupService.getGroupById(id);
-  res.status(group.error?400:200).send(group);
+  res.status(group.error ? 400 : 200).send(group);
 }
 
 /**
@@ -69,16 +69,17 @@ function getGroupById(req, res) {
  * @param {express.response} res
  */
 function putJoinGroup(req, res) {
-  if (!req.signedCookies || !req.signedCookies.user) return res.status(400).send("must sign in first / missing signed cookie");
+  if (!req.signedCookies || !req.signedCookies.user)
+    return res.status(400).send("must sign in first / missing signed cookie");
   const user = req.signedCookies.user;
-  if (!req.body|| !req.body.groupId) return res.status(400).send("must have body with groupId");
+  if (!req.body || !req.body.groupId) return res.status(400).send("must have body with groupId");
   const groupId = req.body.groupId;
   group = groupService.userJoin(groupId, user);
   if (group.error) return res.status(400).send(group);
   res.status(200).send(group);
 }
 
-function getAllGroups(req, res){
+function getAllGroups(req, res) {
   res.send(groupService.getAllGroups());
 }
 

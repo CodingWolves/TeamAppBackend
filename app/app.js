@@ -1,5 +1,6 @@
 const express = require("express");
-const cookieParser = require('cookie-parser')
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const http = require("http");
 const https = require("https");
 const session = require("express-session");
@@ -41,15 +42,14 @@ app.use(
 );
 app.use(cors());
 app.use(cookieParser("secret"));
-app.use(express.json()); // parses incoming request body to json object
+app.use(express.json({ limit: "50mb" })); // parses incoming request json body
+app.use(bodyParser.urlencoded({ limit: "50mb" }));
 
 app.get("/views", (req, res) => {
   req.session.views = req.session.views ? req.session.views + 1 : 1;
   // req.session.cookie.maxAge = 60 * 1000;
   console.log(`Process ${process.pid}`);
-  res.send(
-    `you have viewed this page ${req.session.views} times since sessions cleared`
-  );
+  res.send(`you have viewed this page ${req.session.views} times since sessions cleared`);
 });
 
 appRoutes(app);
@@ -65,9 +65,7 @@ module.exports = function runExpressServer() {
   const httpServer = http.createServer(app);
   // const httpsServer = https.createServer(httpsCredentials, app);
 
-  httpServer.listen(httpPort, () =>
-    console.log(`Process ${process.pid} is http listening on port ${httpPort}`)
-  );
+  httpServer.listen(httpPort, () => console.log(`Process ${process.pid} is http listening on port ${httpPort}`));
   // httpsServer.listen(httpsPort, () =>
   //   console.log(`Process ${process.pid} is http listening on port ${httpsPort}`)
   // );

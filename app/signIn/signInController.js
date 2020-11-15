@@ -14,7 +14,7 @@ module.exports.postSignIn = function postSignIn(req, res) {
 
   user = signInService.signIn(signEmail, signPassword);
   if (user) {
-    res.cookie("user", user, { signed: true });
+    res.cookie("user", user, { signed: true, httpOnly: true });
     res.status(200).send(user);
   } else {
     res.status(400).send({ error: "user not found" });

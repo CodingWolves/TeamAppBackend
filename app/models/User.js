@@ -1,8 +1,6 @@
-// const { Course } = require("./course");
-
 class User {
   constructor(details) {
-    if (!details) details={};
+    if (!details) details = {};
     this.email = details.email;
     this.name = details.name;
     this.password = details.password;

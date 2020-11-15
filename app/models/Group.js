@@ -1,4 +1,3 @@
-
 class Group {
   constructor(id) {
     this.id = id;
@@ -11,11 +10,11 @@ class Group {
     this.institution = "";
     this.participantsNumber = 0;
     this.description = "";
-       
+
     this.timeRanges = [];
     this.howLong = "";
     this.ownerId = "";
-	}
+  }
 }
 
 module.exports.Group = Group;
