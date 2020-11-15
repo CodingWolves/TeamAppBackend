@@ -12,10 +12,12 @@ module.exports.postSignIn = function postSignIn(req, res) {
   signPassword = req.body.password;
   if (!signEmail || !signPassword) return res.status(400).send({ error: "missing email or password" });
 
-  user = signInService.signIn(signEmail, signPassword);
+  let user = signInService.signIn(signEmail, signPassword);
   if (user) {
-    res.cookie("user", user, { signed: true, httpOnly: true });
-    res.status(200).send(user);
+    let minUser = { email: signEmail, name: user.name };
+    let credUser = { email: signEmail, password: signPassword };
+    res.cookie("user", credUser, { signed: true, httpOnly: true });
+    res.status(200).send(minUser);
   } else {
     res.status(400).send({ error: "user not found" });
   }

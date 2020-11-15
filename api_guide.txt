@@ -10,7 +10,7 @@ body: {
 	interested: array
 }
 return:
-	success(201): body
+	success(201): {email, name}
 	fail(400): { error: string }
 
 
@@ -23,7 +23,7 @@ body: {
 	password: string
 }
 return:
-	success(200): {email, password}
+	success(200): {email, name}
 	fail(400): {error: string}
 signed-cookies: "user" = user
 
@@ -41,7 +41,7 @@ body: {
 	interested: array
 }
 return:
-	success(205): {email, password}
+	success(205): {email, name}
 	fail(400): {error: string}
 signed-cookies: "user" = user
 

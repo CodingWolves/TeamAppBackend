@@ -8,7 +8,6 @@ const signUpService = require("./signUpService.js");
  * @param {express.response} res
  */
 module.exports.postSignUp = function postSignUp(req, res) {
-  
   if (!req.body) {
     return res.status(400).send({ error: "body is empty" });
   }
@@ -17,5 +16,7 @@ module.exports.postSignUp = function postSignUp(req, res) {
     user[key] = req.body[key];
   }
   let result = signUpService.signUp(user);
-  res.status(result.error ? 400 : 201).send(result);
+  if (result.error) return res.status(400).send(result);
+  let minUser = { email: user.email, name: user.name };
+  res.status(201).send(minUser);
 };

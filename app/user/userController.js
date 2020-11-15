@@ -56,8 +56,9 @@ function putUpdateUser(req, res) {
   if (user.error) {
     res.status(400).send(user);
   } else {
-    let minUser = { email: user.email, password: user.password };
-    res.cookie("user", minUser, { signed: true, httpOnly: true });
+    let minUser = { email: user.email, name: user.name };
+    let credUser = { email: user.email, password: user.password };
+    res.cookie("user", credUser, { signed: true, httpOnly: true });
     res.status(205).send(minUser);
   }
 }
