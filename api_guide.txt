@@ -12,6 +12,7 @@ body: {
 return:
 	success(201): {email, name}
 	fail(400): { error: string }
+signed-cookies: "user" = user
 
 
 ******************************************************************************

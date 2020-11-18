@@ -17,6 +17,8 @@ module.exports.postSignUp = function postSignUp(req, res) {
   }
   let result = signUpService.signUp(user);
   if (result.error) return res.status(400).send(result);
-  let minUser = { email: user.email, name: user.name };
+  let minUser = { email: result.email, name: result.name };
+  let credUser = { email: result.email, password: result.password };
+  res.cookie("user", credUser, { signed: true, httpOnly: true });
   res.status(201).send(minUser);
 };
