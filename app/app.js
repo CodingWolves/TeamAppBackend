@@ -14,7 +14,7 @@ if (process.env["REDIS_OFF"] === false) {
   let redisClient = redis.createClient();
   redisClient.on("error", console.error);
 
-  store = new RedisStore({ client: redisClient });
+  store = new RedisStore({client: redisClient});
   // const store = new MongoDBStore({
   //   // connects to 'TeamApp' DB in mongo and collection 'sessions'
   //   uri: "mongodb://localhost:27017/TeamApp",
@@ -24,7 +24,7 @@ if (process.env["REDIS_OFF"] === false) {
 }
 
 const appRoutes = require("./appRoutes.js");
-const { env } = require("process");
+const {env} = require("process");
 
 const app = express();
 app.use(
@@ -34,14 +34,30 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: 10000, // 3600000, // one hour
+      maxAge: 3600000, // one hour
+      sameSite: true,
+      signed: true,
+      httpOnly: true,
     },
     store: store,
   })
 );
-app.use(cors());
+app.use(cors({credentials: true, origin: ["http://localhost:8000"]}));
 app.use(cookieParser("secret"));
-app.use(express.json({ limit: "50mb" })); // parses incoming request json body
+app.use((req, res, next) => {
+  res.myCookie = (name, val) => {
+    return res.cookie(name, val, {
+      domain: "localhost",
+      secure: false,
+      // maxAge: 3600000, // one hour
+      sameSite: true,
+      signed: true,
+      httpOnly: true,
+    });
+  };
+  next();
+});
+app.use(express.json({limit: "50mb"})); // parses incoming request json body
 
 app.get("/views", (req, res) => {
   req.session.views = req.session.views ? req.session.views + 1 : 1;

@@ -1,5 +1,5 @@
 const userService = require("./userService.js");
-const { User } = require("../models/User.js");
+const {User} = require("../models/User.js");
 const express = require("express");
 
 /**
@@ -42,9 +42,8 @@ function postUserJoinGroup(req, res) {
  * @param {express.response} res
  */
 function putUpdateUser(req, res) {
-  if (!req.signedCookies || !req.signedCookies.user)
-    return res.status(400).send({ error: "must sign in first / missing signed cookie" });
-  if (!req.body) return res.status(400).send({ error: "must have body" });
+  if (!req.signedCookies || !req.signedCookies.user) return res.status(400).send({error: "must sign in first / missing signed cookie"});
+  if (!req.body) return res.status(400).send({error: "must have body"});
   let user = new User();
   for (let key in user) {
     user[key] = req.body[key];
@@ -56,16 +55,15 @@ function putUpdateUser(req, res) {
   if (user.error) {
     res.status(400).send(user);
   } else {
-    let minUser = { email: user.email, name: user.name };
-    let credUser = { email: user.email, password: user.password };
-    res.cookie("user", credUser, { signed: true, httpOnly: true });
+    let minUser = {email: user.email, name: user.name};
+    let credUser = {email: user.email, password: user.password};
+    res.myCookie("user", credUser);
     res.status(205).send(minUser);
   }
 }
 
 function getUserDetails(req, res) {
-  if (!req.signedCookies || !req.signedCookies.user)
-    return res.status(400).send({ error: "must sign in first / missing signed cookie" });
+  if (!req.signedCookies || !req.signedCookies.user) return res.status(400).send({error: "must sign in first / missing signed cookie"});
   let details = userService.getUserDetails(req.signedCookies.user.email, req.signedCookies.user.password);
   res.status(details ? 200 : 400).send(details);
 }
