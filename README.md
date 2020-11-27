@@ -1,7 +1,24 @@
 # TeamAppBackend
 
-uses:
+There are two types of running the server:
+1. `npm start` - Windows 10 - development environment running only one thread session storage is in-memory. 
+2. `npm run full` - Linux(WSL) - running multiple threads of the server and running redis for session storage. 
 
-1. MYSQL database - general data saves
-2. Redis - cookies database
-3. WSL - enables running multiple apps using cluster and running redis
+### Mysql configuration
+
+configuration settings are present in **`prisma/.env`** file.
+
+**You may change the config file** or change your local Mysql server config.
+
+This is the default config.
+```
+DATABASE_URL="mysql://root:12345678@localhost:3306/teamapp"
+```
+Attribute|Value
+-----|-----
+User|`root`
+Password|`12345678`
+Scheme|`teamapp`
+Port|`3306`
+
+ 

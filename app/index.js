@@ -2,12 +2,6 @@ const cluster = require("cluster");
 const os = require("os");
 const runExpressServer = require("./app.js");
 
-process.env["MYSQL-HOST"] = "localhost";
-process.env["MYSQL-USER"] = "root";
-process.env["MYSQL-PASSWORD"] = "12345678";
-process.env["MYSQL-DB"] = "teamapp";
-process.env["MYSQL-PORT"] = 3306;
-
 if (os.platform().startsWith("win")) {
   console.log("Server is on windows os, starting single worker...");
   runExpressServer();
@@ -19,6 +13,7 @@ if (os.platform().startsWith("win")) {
       cluster.fork();
     }
 
+    // eslint-disable-next-line no-unused-vars
     cluster.on("exit", (worker, code, signal) => {
       console.log(`worker ${worker.process.pid} died`);
     });

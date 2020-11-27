@@ -3,7 +3,7 @@
  "repository": {},
  "license": "GNUv3",
  "dependencies": {
-  "connect-mongodb-session": "^2.4.1",
+  "@prisma/client": "^2.12.1",
   "connect-redis": "^5.0.0",
   "cookie-parser": "^1.4.5",
   "cors": "^2.8.5",
@@ -13,13 +13,23 @@
   "https": "^1.0.0",
   "joi": "^17.2.1",
   "module": "^1.2.5",
-  "mysql": "^2.18.1",
   "nodemon": "^2.0.4",
   "redis": "^3.0.2"
  },
  "scripts": {
   "full": "start .\\scripts\\wsl-start-redis-server.bat && start .\\scripts\\wsl-start-server.bat",
   "start": "set REDIS_OFF=false&&nodemon .\\app\\index.js",
-  "test": ".\\test\\scripts\\wsl-multiple-get-requests.bat"
+  "test": ".\\test\\scripts\\wsl-multiple-get-requests.bat",
+  "lint": "eslint app --fix"
+ },
+ "devDependencies": {
+  "@prisma/cli": "^2.12.1",
+  "@types/node": "^14.14.10",
+  "eslint": "^7.14.0",
+  "eslint-config-prettier": "^6.15.0",
+  "eslint-config-standard": "^16.0.2",
+  "eslint-plugin-import": "^2.22.1",
+  "eslint-plugin-node": "^11.1.0",
+  "eslint-plugin-promise": "^4.2.1"
  }
 }

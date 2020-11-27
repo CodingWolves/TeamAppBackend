@@ -1,30 +1,23 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const http = require("http");
-const https = require("https");
+// const https = require("https");
 const session = require("express-session");
 const cors = require("cors");
-const MongoDBStore = require("connect-mongodb-session")(session);
 const redis = require("redis");
 
 let store = new session.MemoryStore();
 
-if (process.env["REDIS_OFF"] === false) {
+if (process.env.REDIS_OFF === false) {
   const RedisStore = require("connect-redis")(session);
-  let redisClient = redis.createClient();
+  const redisClient = redis.createClient();
   redisClient.on("error", console.error);
 
-  store = new RedisStore({client: redisClient});
-  // const store = new MongoDBStore({
-  //   // connects to 'TeamApp' DB in mongo and collection 'sessions'
-  //   uri: "mongodb://localhost:27017/TeamApp",
-  //   collection: "sessions",
-  // });
+  store = new RedisStore({ client: redisClient });
   store.on("error", console.error);
 }
 
 const appRoutes = require("./appRoutes.js");
-const {env} = require("process");
 
 const app = express();
 app.use(
@@ -37,12 +30,12 @@ app.use(
       maxAge: 3600000, // one hour
       sameSite: true,
       signed: true,
-      httpOnly: true,
+      httpOnly: true
     },
-    store: store,
+    store: store
   })
 );
-app.use(cors({credentials: true, origin: ["http://localhost:8000"]}));
+app.use(cors({ credentials: true, origin: ["http://localhost:8000"] }));
 app.use(cookieParser("secret"));
 app.use((req, res, next) => {
   res.myCookie = (name, val) => {
@@ -52,12 +45,12 @@ app.use((req, res, next) => {
       // maxAge: 3600000, // one hour
       sameSite: true,
       signed: true,
-      httpOnly: true,
+      httpOnly: true
     });
   };
   next();
 });
-app.use(express.json({limit: "50mb"})); // parses incoming request json body
+app.use(express.json({ limit: "50mb" })); // parses incoming request json body
 
 app.get("/views", (req, res) => {
   req.session.views = req.session.views ? req.session.views + 1 : 1;
