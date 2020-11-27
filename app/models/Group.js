@@ -1,19 +1,19 @@
 class Group {
-  constructor(id) {
+  constructor(id, name, courses, subject, studyTogether, where, institution, participantsNumber, description, timeRanges, howLong, ownerId) {
     this.id = id;
-    this.name = "";
-    this.course = null;
-    this.subject = "";
-    this.studyTogether = false;
+    this.name = name;
+    this.course = courses;
+    this.subject = subject;
+    this.studyTogether = studyTogether;
 
-    this.where = "";
-    this.institution = "";
-    this.participantsNumber = 0;
-    this.description = "";
+    this.where = where;
+    this.institution = institution;
+    this.participantsNumber = participantsNumber;
+    this.description = description;
 
-    this.timeRanges = [];
-    this.howLong = "";
-    this.ownerId = "";
+    this.timeRanges = timeRanges;
+    this.howLong = howLong;
+    this.ownerId = ownerId;
   }
 }
 

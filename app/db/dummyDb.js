@@ -1,6 +1,6 @@
-const { User } = require("../models/User.js");
-const { Course } = require("../models/Course.js");
-const { Group } = require("../models/Group.js");
+const {User} = require("../models/User.js");
+const {Course} = require("../models/Course.js");
+const {Group} = require("../models/Group.js");
 
 module.exports.users = [
   new User({
@@ -15,10 +15,15 @@ module.exports.users = [
   }),
 ];
 module.exports.courses = [
-  new Course("1", "a"),
-  new Course("2", "b"),
-  new Course("3", "c"),
-  new Course("4", "d"),
-  new Course("5", "e"),
+  new Course("course value1", "course label1"),
+  new Course("course value2", "course label2"),
+  new Course("course value3", "course label3"),
+  new Course("course value4", "course label4"),
+  new Course("course value5", "course label5"),
 ];
-module.exports.studyGroups = [new Group(1), new Group(2), new Group(3), new Group(4)];
+module.exports.studyGroups = [
+  new Group(1, "name1", this.courses[0], "first subject", true, "at my house", "HIT", 42, "desc1", "10:00->20:00", "3 hours", 1),
+  new Group(2, "name2", this.courses[2], "second subject", false, "at your house", "HIT", 5, "desc2", "11:00->12:00", "3 hours", 1),
+  new Group(3, "name3", this.courses[1], "third subject", true, "library", "Johns", 4, "desc3", "05:00->16:00", "4 hours", 2),
+  new Group(4, "name4", this.courses[3], "fourth subject", false, "zoom", "MIT", 90, "desc4", "12:00->18:00", "2 hours", 1),
+];
