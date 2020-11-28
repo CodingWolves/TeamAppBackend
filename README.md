@@ -21,4 +21,6 @@ Password|`12345678`
 Scheme|`teamapp`
 Port|`3306`
 
- 
+#### Create schema
+
+You need to create the tables with the `schema.sql` file in `prisma` folder, you can open that file and execute it in Mysql server.

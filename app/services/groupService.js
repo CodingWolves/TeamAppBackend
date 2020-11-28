@@ -30,7 +30,7 @@ module.exports.getGroupById = async function getGroupById(id) {
 };
 
 /**
- * @param {int} group
+ * @param {int} groupId
  * @param {_User} user
  */
 // eslint-disable-next-line no-unused-vars

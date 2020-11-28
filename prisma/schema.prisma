@@ -18,7 +18,7 @@ model users {
   name        String
   password    String
   degree      String?
-  instisution String?
+  institution String?
   image       String?
   interested  String?
 }
@@ -29,7 +29,7 @@ model groups {
   subject            String?
   studyTogether      Int?
   where              String?
-  instisution        String?
+  institution        String?
   participantsNumber Int?
   description        String?
   timeRanges         String?

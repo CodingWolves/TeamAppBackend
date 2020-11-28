@@ -26,6 +26,6 @@ module.exports.deleteGroup = function deleteGroup(groupWhere) {
  * @param {_Group} groupSet
  * @param {_Group} groupWhere
  */
-module.exports.updateGroupWhere = (groupSet, groupWhere) => {
+module.exports.updateGroupWhere = function updateGroupWhere (groupSet, groupWhere) {
   return db.groups.update({ where: groupWhere, data: groupSet });
 };

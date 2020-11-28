@@ -12,6 +12,6 @@
     "semi": ["warn", "always"],
     "space-before-function-paren": "off",
     "quotes": ["error", "double", { "avoidEscape": true }],
-    "no-unused-vars": ["error", { "varsIgnorePattern": "^_" }]
+    "no-unused-vars": [2, { "args": "all", "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]
   }
 }
