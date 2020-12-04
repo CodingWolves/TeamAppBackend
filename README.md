@@ -8,6 +8,8 @@ There are two types of running the server:
 
 configuration settings are present in **`prisma/.env`** file.
 
+
+
 **You may change the config file** or change your local Mysql server config.
 
 This is the default config.
@@ -24,3 +26,13 @@ Port|`3306`
 #### Create schema
 
 You need to create the tables with the `schema.sql` file in `prisma` folder, you can open that file and execute it in Mysql server.
+
+#### Activate prisma ORM
+
+In folder, execute these commands:
+
+1. `npm install`
+2. `npx prisma introspect`
+3. `npx prisma generate`
+
+If no problems occurred, you can now run the server.

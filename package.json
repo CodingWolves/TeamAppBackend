@@ -3,6 +3,7 @@
  "repository": {},
  "license": "GNUv3",
  "dependencies": {
+  "@prisma/cli": "^2.12.1",
   "@prisma/client": "^2.12.1",
   "connect-redis": "^5.0.0",
   "cookie-parser": "^1.4.5",
@@ -23,7 +24,6 @@
   "lint": "eslint app --fix"
  },
  "devDependencies": {
-  "@prisma/cli": "^2.12.1",
   "@types/node": "^14.14.10",
   "eslint": "^7.14.0",
   "eslint-config-prettier": "^6.15.0",
